@@ -3,21 +3,33 @@
     <q-dialog :maximized="true" persistent v-model="infoItem">
       <q-card class="bg-dark text-white">
         <div class="row">
-          <div class="col">
-            <q-btn size="md" icon="arrow_back" label="Voltar" color="primary" @click="back()"/>
-            <q-btn size="md" icon="star" label="Favoritar" color="orange-9" @click="back()"/>
-            <q-btn size="md" icon="home" label="Inicio" color="orange-9" @click="back()"/>
-          </div>
+          <q-btn
+            @click="back()"
+            icon="arrow_back"
+            flat
+            dense
+            color="primary"
+            label="Voltar"
+            class="col-auto q-ma-sm" />
         </div>
+        <!-- <div class="row">
+          <div class="col">
+            <q-btn size="sm" icon="arrow_back" label="Voltar" color="primary" @click="back()"/>
+            <q-btn size="sm" icon="star" label="Favoritar" color="orange-9" @click="back()"/>
+            <q-btn size="sm" icon="home" label="Inicio" color="orange-9" to="/"/>
+          </div>
+        </div> -->
         <div v-for="(item, index) in data.items" :key="index">
           <!-- ITEM -->
-          <div class="bg-info" v-if="index === 0">
+          <div class="bg-info text-center" v-if="index === 0">
             <q-img
+            @click="show(item.id)"
             :style="'background: radial-gradient(circle, #fff 5%, ' + bgColor(item.rarity.value) +  ' 70%)'"
             :src="item.images.featured != null ? item.images.featured : item.images.icon" />
             <q-card-section class="text-center bg-info">
               <div class="text-h6">{{ item.name }}</div>
               {{ item.description }}
+              <q-btn class="full-width" color="primary" label="Visualizar" @click="show(item.id)"/>
             </q-card-section>
           </div>
         </div>
@@ -29,14 +41,30 @@
           <div v-if="index > 0" class="warp" >
             <!-- IMG -->
             <q-img
+              @click="show(item.id)"
               :style="'background: radial-gradient(circle, #fff -80%, ' + bgColor(item.rarity.value) +  ' 70%)'"
               :src="item.images.featured != null ? item.images.featured : item.images.icon" >
               <div class="absolute-bottom text-subtitle2 text-center">
                 {{ item.name }}
+                <q-btn class="full-width" color="primary" label="Visualizar" @click="show(item.id)"/>
               </div>
             </q-img>
           </div>
         </div>
+        <q-card-section>
+          <div class="text-h6 q-mt-sm q-mb-xs text-primary">Raridade:</div>
+          <div class="text-caption text-white">
+            {{ data.items[0].rarity.displayValue }}
+          </div>
+          <div class="text-h6 q-mt-sm q-mb-xs text-primary">Lançamento:</div>
+          <div class="text-caption text-white">
+            {{ data.items[0].introduction.text }}
+          </div>
+          <div class="text-h6 q-mt-sm q-mb-xs text-primary">Última aparição na loja:</div>
+          <div class="text-caption text-white">
+            {{ data.items[0].shopHistory[position] | formatarData }}
+          </div>
+        </q-card-section>
       </q-card>
     </q-dialog>
   </div>
@@ -48,7 +76,8 @@ export default {
   props: ['info', 'infoItem'],
   data () {
     return {
-      data: this.info
+      data: this.info,
+      position: 0
     }
   },
   watch: {
@@ -58,6 +87,7 @@ export default {
   },
   created(){
     console.log(this.data.items)
+    this.position = this.data.items[0].shopHistory.length - 2
   },
   methods: {
     bgColor(value){
@@ -80,13 +110,19 @@ export default {
           break;
 
         default:
-          color = 'white'
+          color = 'dark'
           break;
       }
       return color
     },
     back(){
       this.$emit('back', false)
+    },
+    show(id){
+      // console.log(id)
+      this.$router.push({
+        path: '/cosmetic/' + id
+      })
     }
   }
 }

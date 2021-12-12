@@ -5,6 +5,16 @@ import routes from './routes'
 
 Vue.use(VueRouter)
 
+Vue.filter('formatarData', (valor) => {
+  if(valor != undefined || valor != null){
+    let ano = valor.slice(0,4)
+    let mes = valor.slice(5,7)
+    let dia = valor.slice(8,10)
+    let data = dia + '/' + mes + '/' + ano
+    return data
+  }
+})
+
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;

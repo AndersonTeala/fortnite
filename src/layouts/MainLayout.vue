@@ -1,38 +1,24 @@
 <template>
-  <q-layout class="bg-dark" view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout class="bg-dark" view="lHh Lpr lFF">
+    <q-header reveal elevated height-hint="98">
         <q-toolbar class="bg-dark">
-          <div class="row items-center">
-            <div class="col-3">
-              <q-btn
-                flat
-                dense
-                round
-                icon="menu"
-                aria-label="Menu"
-                @click="leftDrawerOpen = !leftDrawerOpen"
-                size="xl"
-                color="primary"
-              />
-            </div>
-            <div class="col text-center">
-              <img
-                alt="Quasar logo"
-                src="images/logo_fortnite_white.png"
-                style="width: 220px;"
-              >
-            </div>
+          <div class="row justify-center full-height full-width text-center">
+            <img
+              alt="Quasar logo"
+              src="images/logo_fortnite_white.png"
+              style="width: 200px;"
+            />
           </div>
         </q-toolbar>
     </q-header>
 
-    <q-drawer
+    <!-- <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
       bordered
     >
       OI
-    </q-drawer>
+    </q-drawer> -->
 
     <q-page-container>
       <router-view />

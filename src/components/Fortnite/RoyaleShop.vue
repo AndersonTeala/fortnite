@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- TITLE -->
-    <div class="row-12 title text-white text-center text-h3 q-pa-md">
+    <div class="row-12 title text-primary text-center text-h3 q-pa-md">
       {{ titleType }}
     </div>
     <!-- SHOP -->
@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+const eventHub = new Vue()
 import InfoItemShop from 'components/Fortnite/InfoItemShop.vue'
 export default {
   // name: 'ComponentName',
@@ -50,7 +52,8 @@ export default {
       dataShop: this.data,
       vbuckImage: this.vbuckIcon,
       infoItem: false,
-      infoData: {}
+      infoData: {},
+      eventHub: eventHub
     }
   },
   created(){
@@ -77,7 +80,7 @@ export default {
           break;
 
         default:
-          color = 'white'
+          color = 'dark'
           break;
       }
       return color
@@ -86,6 +89,10 @@ export default {
       // console.log(item)
       this.infoData = item
       this.infoItem = true
+      return
+      // this.$router.push({
+      //   path: '/info-item-shop',
+      // })
     },
     back(event){
       this.infoItem = event
