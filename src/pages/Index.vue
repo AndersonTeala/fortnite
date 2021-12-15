@@ -3,6 +3,15 @@
     <!-- SHOP -->
     <Card
       :dataCard="data"/>
+    <!-- NEWS -->
+    <Card
+      :dataCard="dataNews"/>
+    <!-- ITENS -->
+    <Card
+      :dataCard="dataItens"/>
+    <!-- MAP -->
+    <Card
+      :dataCard="dataMap"/>
   </q-page>
 </template>
 
@@ -18,6 +27,21 @@ export default {
       data: {
         image: 'https://fortnite-api.com/images/cosmetics/br/cid_527_athena_commando_f_streetfashionred/featured.png',
         label: 'LOJA DE HOJE',
+        to: '/fortnite-shop'
+      },
+      dataNews: {
+        image: 'https://fortnite-api.com/images/cosmetics/br/cid_934_athena_commando_m_vertigo/featured.png',
+        label: 'NOVIDADES',
+        to: '/fortnite-shop'
+      },
+      dataItens: {
+        image: 'https://fortnite-api.com/images/cosmetics/br/cid_a_262_athena_commando_m_headbandk/featured.png',
+        label: 'TODOS OS ITENS',
+        to: '/fortnite-shop'
+      },
+      dataMap: {
+        image: 'https://fortnite-api.com/images/cosmetics/br/cid_a_261_athena_commando_m_headband/featured.png',
+        label: 'MAPA',
         to: '/fortnite-shop'
       },
     }

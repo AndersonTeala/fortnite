@@ -4,7 +4,7 @@
         <q-toolbar class="bg-dark">
           <div class="row justify-center full-height full-width text-center">
             <img
-              alt="Quasar logo"
+              alt="Fortnite logo"
               src="images/logo_fortnite_white.png"
               style="width: 200px;"
             />
@@ -20,6 +20,10 @@
       OI
     </q-drawer> -->
 
+    <q-footer elevated>
+      <Footer />
+    </q-footer>
+
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -27,9 +31,13 @@
 </template>
 
 <script>
+import Footer from 'components/Container/Footer.vue'
 
 export default {
   name: 'MainLayout',
+  components: {
+    Footer
+  },
   data () {
     return {
       leftDrawerOpen: false
