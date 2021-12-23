@@ -7,7 +7,8 @@ const routes = [
       { path: '', component: () => import('pages/Index.vue') },
       { path: '/fortnite-shop', component: () => import('pages/Shop.vue') },
       { path: '/info-item-shop', component: () => import('pages/InfoItemShop.vue') },
-      { path: '/cosmetic/:id', component: () => import('pages/Cosmetic.vue') }
+      { path: '/cosmetic/:id', component: () => import('pages/Cosmetic.vue') },
+      { path: '/fortnite-news', component: () => import('pages/FortniteNews.vue') },
     ]
   },
 

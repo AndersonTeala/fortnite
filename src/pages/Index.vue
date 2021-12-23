@@ -32,7 +32,7 @@ export default {
       dataNews: {
         image: 'https://fortnite-api.com/images/cosmetics/br/cid_934_athena_commando_m_vertigo/featured.png',
         label: 'NOVIDADES',
-        to: '/fortnite-shop'
+        to: '/fortnite-news'
       },
       dataItens: {
         image: 'https://fortnite-api.com/images/cosmetics/br/cid_a_262_athena_commando_m_headbandk/featured.png',
