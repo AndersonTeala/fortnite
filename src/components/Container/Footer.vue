@@ -13,7 +13,7 @@
       <q-tab name="/fortnite-shop" icon="fas fa-shopping-cart" @click="goTo('/fortnite-shop')" />
       <q-tab name="/fortnite-news" icon="fas fa-newspaper" @click="goTo('/fortnite-news')" />
       <q-tab name="bag" icon="fas fa-shopping-bag" />
-      <q-tab name="map" icon="fas fa-map" />
+      <q-tab name="/fortnite-map" icon="fas fa-map" @click="goTo('/fortnite-map')" />
       <q-tab name="youtube" icon="fab fa-youtube" />
       <q-tab name="twitch" icon="fab fa-twitch" />
     </q-tabs>
