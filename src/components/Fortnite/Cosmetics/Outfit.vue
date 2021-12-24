@@ -30,6 +30,7 @@
           size="sm"
           boundary-numbers
           direction-links
+          @click="getTopoMobile()"
         />
       </div>
       <div v-if="pageAll == true" class="row-12 q-my-sm flex flex-center">
@@ -103,10 +104,12 @@ export default {
       return color
     },
     show(id){
-      // console.log(id)
       this.$router.push({
         path: '/cosmetic/' + id
       })
+    },
+    getTopoMobile(){
+      window.scrollTo(0, 0)
     }
   }
 }
