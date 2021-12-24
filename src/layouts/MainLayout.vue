@@ -2,12 +2,25 @@
   <q-layout class="bg-dark" view="lHh Lpr lFF">
     <q-header reveal elevated height-hint="98">
         <q-toolbar class="bg-dark">
-          <div class="row justify-center full-height full-width text-center">
-            <img
+          <div class="row justify-center full-height full-width text-center q-my-sm">
+            <div class="title text-h4 text-center text-primary">
+              <template>
+                <q-avatar>
+                  <img src="images/picareta_espinho_fortnite.png">
+                </q-avatar>
+              </template>
+              HENRIQUEWHY
+              <template>
+                <q-avatar>
+                  <img src="images/picareta_espinho_fortnite.png">
+                </q-avatar>
+              </template>
+            </div>
+            <!-- <img
               alt="Fortnite logo"
               src="images/logo_fortnite_white.png"
               style="width: 200px;"
-            />
+            /> -->
           </div>
         </q-toolbar>
     </q-header>
@@ -45,3 +58,9 @@ export default {
   }
 }
 </script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.title {
+  font-family: 'Anton', sans-serif;
+}
+</style>

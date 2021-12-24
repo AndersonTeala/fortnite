@@ -1,5 +1,12 @@
 <template class="bg-dark">
-  <q-page class="temp q-mt-xl bg-dark">
+  <q-page class="temp bg-dark">
+    <div class="row justify-center full-height full-width text-center q-mb-lg">
+      <img
+        alt="Fortnite logo"
+        src="images/logo_fortnite_white.png"
+        style="width: 200px;"
+      />
+    </div>
     <!-- SHOP -->
     <Card
       :dataCard="data"/>
@@ -37,12 +44,12 @@ export default {
       dataItens: {
         image: 'https://fortnite-api.com/images/cosmetics/br/cid_a_262_athena_commando_m_headbandk/featured.png',
         label: 'TODOS OS ITENS',
-        to: '/fortnite-shop'
+        to: '/fortnite-cosmetics'
       },
       dataMap: {
         image: 'https://fortnite-api.com/images/cosmetics/br/cid_a_261_athena_commando_m_headband/featured.png',
         label: 'MAPA',
-        to: '/fortnite-shop'
+        to: '/fortnite-map'
       },
     }
   }

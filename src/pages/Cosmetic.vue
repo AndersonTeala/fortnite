@@ -75,7 +75,7 @@ export default {
       .then(response => {
         that.infoData = response.data.data
         this.position = response.data.data.shopHistory.length - 2
-        console.log(that.infoData)
+        // console.log(that.infoData)
       }).catch(error => {
         console.log(error)
       }).finally(() => {

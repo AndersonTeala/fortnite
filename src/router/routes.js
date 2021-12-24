@@ -10,6 +10,7 @@ const routes = [
       { path: '/cosmetic/:id', component: () => import('pages/Cosmetic.vue') },
       { path: '/fortnite-news', component: () => import('pages/FortniteNews.vue') },
       { path: '/fortnite-map', component: () => import('pages/FortniteMap.vue') },
+      { path: '/fortnite-cosmetics', component: () => import('pages/FortniteCosmetics.vue') },
     ]
   },
 
