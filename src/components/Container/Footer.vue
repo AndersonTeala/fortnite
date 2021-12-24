@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mobile-only">
     <q-tabs
       v-model="tabRoute"
       indicator-color="yellow"

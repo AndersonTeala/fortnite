@@ -1,5 +1,5 @@
 <template class="bg-dark">
-  <q-page class="temp bg-dark">
+  <q-page class="temp bg-dark mobile-only">
     <div class="row justify-center full-height full-width text-center q-mb-lg">
       <img
         alt="Fortnite logo"
