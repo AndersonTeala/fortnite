@@ -42,6 +42,7 @@
           input-class="text-orange-10"
           size="md"
           direction-links
+          @click="getTopoMobile()"
         />
       </div>
     </div>
