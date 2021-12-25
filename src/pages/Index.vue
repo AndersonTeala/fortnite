@@ -2,9 +2,9 @@
   <q-page class="temp bg-dark mobile-only">
     <div class="row justify-center full-height full-width text-center q-mb-lg">
       <img
+        class="logoFortnite"
         alt="Fortnite logo"
         src="images/logo_fortnite_white.png"
-        style="width: 200px;"
       />
     </div>
     <!-- SHOP -->
@@ -59,5 +59,11 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 .temp {
   font-family: 'Anton', sans-serif;
+}
+.logoFortnite {
+  max-width: 200px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
 }
 </style>
