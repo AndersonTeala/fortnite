@@ -1,8 +1,8 @@
 {
-  "name": "fortnite",
+  "name": "MateusDantas",
   "version": "0.0.1",
-  "description": "Fortnite app",
-  "productName": "Fortnite Web/App",
+  "description": "MateusDantas",
+  "productName": "MateusDantas",
   "author": "Anderson Teala <andersonteala@gmail.com>",
   "private": true,
   "scripts": {
