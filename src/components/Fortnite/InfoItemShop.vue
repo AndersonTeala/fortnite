@@ -70,6 +70,7 @@
 
 <script>
 import Vue from 'vue'
+import { Loading } from 'quasar'
 export default {
   name: 'InfoItemShop',
   props: ['info', 'infoItem'],
@@ -86,11 +87,9 @@ export default {
     },
   },
   created(){
-    if( Object.prototype.toString.call( this.data ) === '[object Array]' ) {
-      if(this.data.items[0].shopHistory != null){
-        this.position = this.data.items[0].shopHistory.length - 2
-      }
-    }else{
+    // console.log(this.data.items)
+    Loading.show()
+    if(this.data.items == undefined){
       var arrObj = [
         this.data
       ];
@@ -98,7 +97,12 @@ export default {
       if(this.data.items[0].shopHistory != null){
         this.position = this.data.items[0].shopHistory.length - 2
       }
+    }else{
+      if(this.data.items[0].shopHistory != null){
+        this.position = this.data.items[0].shopHistory.length - 2
+      }
     }
+    Loading.hide()
   },
   methods: {
     bgColor(value){

@@ -81,8 +81,8 @@ module.exports = function (/* ctx */) {
       lang: 'en-us', // Quasar language pack
       config: {
         capacitor: {
-          backButtonExit: true,
-          backButton: true
+          backButtonExit: false,
+          backButton: false
         }
       },
 
