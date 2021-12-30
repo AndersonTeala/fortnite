@@ -13,8 +13,11 @@
           <q-img
             :style="'background: radial-gradient(circle, #fff -80%, ' + bgColor(item.items[0].rarity.value) +  ' 70%)'"
             :src="item.items[0].images.icon" >
-            <div class="absolute-bottom text-subtitle2 text-center">
+            <div v-if="item.items.length <= 3" class="absolute-bottom text-subtitle2 text-center">
               {{ item.items[0].name }}
+            </div>
+            <div v-else class="absolute-bottom text-subtitle2 text-center">
+              Pacotão - {{ item.items[0].name }}
             </div>
           </q-img>
           <q-card-section class="bg-info">
@@ -57,7 +60,7 @@ export default {
     }
   },
   created(){
-    // console.log(this.dataShop[0])
+    console.log(this.data)
   },
   methods: {
     bgColor(value){
@@ -80,7 +83,7 @@ export default {
           break;
 
         default:
-          color = 'dark'
+          color = 'purple'
           break;
       }
       return color

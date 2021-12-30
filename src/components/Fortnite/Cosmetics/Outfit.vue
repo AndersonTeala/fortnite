@@ -6,13 +6,13 @@
           <!-- ITEM -->
           <div class="bg-info text-center">
             <q-img
-            @click="show(item.id)"
+            @click="dataItem(item)"
             :style="'background: radial-gradient(circle, #fff -80%, ' + bgColor(item.rarity.value) +  ' 70%)'"
             :src="item.images.featured != null ? item.images.icon : item.images.icon" />
             <q-card-section class="text-center bg-info">
               <div class="text-subtitle2 text-center">{{ item.name }}</div>
               <!-- <div class="text-subtitle2 text-center">{{ item.description }}</div> -->
-              <q-btn class="full-width" color="primary" label="Visualizar" @click="show(item.id)"/>
+              <q-btn class="full-width" color="primary" label="Visualizar" @click="dataItem(item)"/>
             </q-card-section>
           </div>
         </q-card>
@@ -54,20 +54,31 @@
         icon="dialpad"
         @click="pageAll = !pageAll" />
     </div>
+    <InfoItemShop
+      v-if="infoItem"
+      :infoItem="infoItem"
+      :info="infoData"
+      @back="back"/>
   </div>
 </template>
 
 <script>
+import InfoItemShop from 'components/Fortnite/InfoItemShop.vue'
 export default {
   // name: 'ComponentName',
   props: ['data'],
+  components: {
+    InfoItemShop
+  },
   data () {
     return {
       page: 1,
       currentPage: 1,
       nextPage: null,
       totalPages: 10,
-      pageAll: false
+      pageAll: false,
+      infoItem: false,
+      infoData: {},
     }
   },
   computed: {
@@ -111,6 +122,15 @@ export default {
     },
     getTopoMobile(){
       window.scrollTo(0, 0)
+    },
+    dataItem(item){
+      this.infoData = item
+      this.infoItem = true
+      return
+    },
+    back(event){
+      this.infoItem = event
+      this.infoData = {}
     }
   }
 }

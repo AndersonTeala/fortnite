@@ -5,7 +5,8 @@
           <div class="row justify-center full-height full-width text-center q-my-sm">
             <div class="title text-h4 text-center text-primary">
               <template>
-                <img src="images/tealagames.png" class="logoTeala">
+                <img src="images/mateusdantas.png" class="logoTeala">
+                <!-- <strong>MATEUS DANTAS</strong> -->
               </template>
             </div>
           </div>
@@ -51,8 +52,8 @@ export default {
   font-family: 'Anton', sans-serif;
 }
 .logoTeala {
-  max-width: 300px;
-  max-height: 150px;
+  max-width: 250px;
+  max-height: 100px;
   width: auto;
   height: auto;
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-dialog :maximized="true" persistent v-model="infoItem">
+    <q-dialog :maximized="true" v-model="infoItem">
       <q-card class="bg-dark text-white">
         <div class="row">
           <q-btn
@@ -23,13 +23,12 @@
           <!-- ITEM -->
           <div class="bg-info text-center" v-if="index === 0">
             <q-img
-            @click="show(item.id)"
             :style="'background: radial-gradient(circle, #fff 5%, ' + bgColor(item.rarity.value) +  ' 70%)'"
             :src="item.images.featured != null ? item.images.featured : item.images.icon" />
             <q-card-section class="text-center bg-info">
               <div class="text-h6">{{ item.name }}</div>
               {{ item.description }}
-              <q-btn class="full-width" color="primary" label="Visualizar" @click="show(item.id)"/>
+              <!-- <q-btn class="full-width" color="primary" label="Visualizar" @click="show(item.id)"/> -->
             </q-card-section>
           </div>
         </div>
@@ -41,12 +40,11 @@
           <div v-if="index > 0" class="warp" >
             <!-- IMG -->
             <q-img
-              @click="show(item.id)"
               :style="'background: radial-gradient(circle, #fff -80%, ' + bgColor(item.rarity.value) +  ' 70%)'"
               :src="item.images.featured != null ? item.images.featured : item.images.icon" >
               <div class="absolute-bottom text-subtitle2 text-center">
                 {{ item.name }}
-                <q-btn class="full-width" color="primary" label="Visualizar" @click="show(item.id)"/>
+                <!-- <q-btn class="full-width" color="primary" label="Visualizar" @click="show(item.id)"/> -->
               </div>
             </q-img>
           </div>
@@ -60,8 +58,8 @@
           <div class="text-caption text-white">
             {{ data.items[0].introduction.text }}
           </div>
-          <div class="text-h6 q-mt-sm q-mb-xs text-primary">Última aparição na loja:</div>
-          <div class="text-caption text-white">
+          <div v-if="data.items[0].shopHistory != null" class="text-h6 q-mt-sm q-mb-xs text-primary">Última aparição na loja:</div>
+          <div v-if="data.items[0].shopHistory != null" class="text-caption text-white">
             {{ data.items[0].shopHistory[position] | formatarData }}
           </div>
         </q-card-section>
@@ -71,23 +69,36 @@
 </template>
 
 <script>
+import Vue from 'vue'
 export default {
-  // name: 'ComponentName',
+  name: 'InfoItemShop',
   props: ['info', 'infoItem'],
   data () {
     return {
       data: this.info,
-      position: 0
+      position: 0,
+      next: false,
     }
   },
   watch: {
     info() {
       this.data = this.info
-    }
+    },
   },
   created(){
-    console.log(this.data.items)
-    this.position = this.data.items[0].shopHistory.length - 2
+    if( Object.prototype.toString.call( this.data ) === '[object Array]' ) {
+      if(this.data.items[0].shopHistory != null){
+        this.position = this.data.items[0].shopHistory.length - 2
+      }
+    }else{
+      var arrObj = [
+        this.data
+      ];
+      this.data.items = arrObj
+      if(this.data.items[0].shopHistory != null){
+        this.position = this.data.items[0].shopHistory.length - 2
+      }
+    }
   },
   methods: {
     bgColor(value){
@@ -110,7 +121,7 @@ export default {
           break;
 
         default:
-          color = 'dark'
+          color = 'purple'
           break;
       }
       return color

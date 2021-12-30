@@ -27,8 +27,8 @@
         <div class="text-caption text-white">
           {{ infoData.introduction.text }}
         </div>
-        <div class="text-h6 q-mt-sm q-mb-xs text-primary">Última aparição na loja:</div>
-        <div class="text-caption text-white">
+        <div v-if="infoData.shopHistory != null" class="text-h6 q-mt-sm q-mb-xs text-primary">Última aparição na loja:</div>
+        <div v-if="infoData.shopHistory != null" class="text-caption text-white">
           {{ infoData.shopHistory[position] | formatarData }}
         </div>
       </q-card-section>
@@ -74,7 +74,9 @@ export default {
       that.$axios.get(that.$fortniteAPI + '/cosmetics/br/' + this.id + '?language=pt-BR')
       .then(response => {
         that.infoData = response.data.data
-        this.position = response.data.data.shopHistory.length - 2
+        if(that.infoData.shopHistory != null){
+          this.position = response.data.data.shopHistory.length - 2
+        }
         // console.log(that.infoData)
       }).catch(error => {
         console.log(error)
@@ -103,7 +105,7 @@ export default {
           break;
 
         default:
-          color = 'white'
+          color = 'purple'
           break;
       }
       return color
