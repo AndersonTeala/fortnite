@@ -7,7 +7,6 @@
       align="justify"
       outside-arrows
       mobile-arrows
-      no-caps
     >
       <q-tab name="/" icon="fas fa-home" @click="goTo('/')" />
       <q-tab name="/fortnite-shop" icon="fas fa-shopping-cart" @click="goTo('/fortnite-shop')" />

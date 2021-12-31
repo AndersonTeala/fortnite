@@ -4,7 +4,7 @@
       <q-card class="bg-dark text-white">
         <div class="row">
           <q-btn
-            @click="back()"
+            @click="yourCallBackFunction(true)"
             icon="arrow_back"
             flat
             dense
@@ -70,7 +70,7 @@
 
 <script>
 import Vue from 'vue'
-import { Loading } from 'quasar'
+import { Loading, LocalStorage } from 'quasar'
 export default {
   name: 'InfoItemShop',
   props: ['info', 'infoItem'],
@@ -103,6 +103,12 @@ export default {
       }
     }
     Loading.hide()
+  },
+  mounted(){
+    //
+  },
+  beforeDestroy() {
+    //
   },
   methods: {
     bgColor(value){
@@ -138,6 +144,11 @@ export default {
       this.$router.push({
         path: '/cosmetic/' + id
       })
+    },
+    yourCallBackFunction(event = false){
+      if(event == true){
+        this.back()
+      }
     }
   }
 }

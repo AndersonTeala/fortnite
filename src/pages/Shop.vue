@@ -24,6 +24,7 @@
 <script>
 import RoyaleShop from 'components/Fortnite/RoyaleShop.vue'
 import { Loading } from 'quasar'
+
 export default {
   components: {
     RoyaleShop

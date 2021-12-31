@@ -101,7 +101,8 @@ module.exports = function (/* ctx */) {
       // Quasar plugins
       plugins: [
         'AddressbarColor',
-        'Notify'
+        'Notify',
+        'LocalStorage'
       ]
     },
 

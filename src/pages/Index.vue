@@ -32,6 +32,10 @@
 
 <script>
 import Card from 'src/components/Fortnite/Card.vue'
+
+import { Plugins } from '@capacitor/core'
+const { LocalNotifications } = Plugins
+
 export default {
   name: 'PageIndex',
   components: {
@@ -61,10 +65,16 @@ export default {
       },
       items: [],
       mode: true,
+      smallIcon: ''
     }
   },
   mounted(){
     this.getShop('outfit')
+    this.pushNot('outfit')
+    // this.getNotTimeout()
+  },
+  beforeDestroy() {
+    // this.getNotTimeout()
   },
   methods: {
     getShop(type){
@@ -82,6 +92,7 @@ export default {
           let random4 = Math.floor(Math.random() * (max - min + 1)) + min
           if(that.items[random1]){
             var image1 = that.items[random1].images.featured != null ? that.items[random1].images.featured : that.items[random1].images.icon
+            var smallIcon = that.items[random1].images.smallIcon
           }
           if(that.items[random2]){
             var image2 = that.items[random2].images.featured != null ? that.items[random2].images.featured : that.items[random2].images.icon
@@ -103,8 +114,36 @@ export default {
         console.log(error)
       })
     },
-    random(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+    pushNot(){
+      const canSend = LocalNotifications.requestPermission()
+      var now = new Date();
+      if (canSend) {
+        LocalNotifications.schedule({
+          notifications: [
+            {
+              title: 'Corre aqui!',
+              body: 'A loja atualizou!',
+              id: 1,
+              schedule: { at: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 0, 0, 0), repeats: true },
+              attachments: null,
+              actionTypeId: '',
+              extra: null,
+              smallIcon: '',
+              iconColor: '#488AFF',
+              sound: 'beep.wav'
+            },
+          ],
+        })
+      }
+      // console.log('scheduled notifications', LocalNotifications);
+    },
+    getNotTimeout(){
+      var now = new Date();
+      var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 0, 0, 0) - now;
+      if (millisTill10 < 0) {
+          millisTill10 += 86400000;
+      }
+      setTimeout(this.pushNot(), millisTill10);
     }
   },
 }
