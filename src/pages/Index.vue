@@ -1,31 +1,36 @@
 <template class="bg-dark">
-  <q-page class="temp bg-dark mobile-only">
-    <div class="row justify-center full-height full-width text-center q-mb-lg">
-      <img
-        class="logoFortnite"
-        alt="Fortnite logo"
-        src="images/logo_fortnite_white.png"
-      />
+  <q-page class="temp bg-dark">
+    <div class="mobile-only">
+      <div class="row justify-center full-height full-width text-center q-mb-lg">
+        <img
+          class="logoFortnite"
+          alt="Fortnite logo"
+          src="images/logo_fortnite_white.png"
+        />
+      </div>
+      <div v-if="mode" class="q-pa-md">
+        <q-card flat :dark="true" :square="false" :bordered="false">
+          <q-skeleton style="height: 200px; background: radial-gradient(circle, #fff -10%, #1492FF 70%)" square />
+          <q-skeleton type="QToolbar" class="text-subtitle1 bg-yellow absolute-bottom" />
+        </q-card>
+      </div>
+      <div v-if="mode == false">
+        <!-- SHOP -->
+        <Card
+          :dataCard="data"/>
+        <!-- NEWS -->
+        <Card
+          :dataCard="dataNews"/>
+        <!-- ITENS -->
+        <Card
+          :dataCard="dataItens"/>
+        <!-- MAP -->
+        <Card
+          :dataCard="dataMap"/>
+      </div>
     </div>
-    <div v-if="mode" class="q-pa-md">
-      <q-card flat :dark="true" :square="false" :bordered="false">
-        <q-skeleton style="height: 200px; background: radial-gradient(circle, #fff -10%, #1492FF 70%)" square />
-        <q-skeleton type="QToolbar" class="text-subtitle1 bg-yellow absolute-bottom" />
-      </q-card>
-    </div>
-    <div v-if="mode == false">
-      <!-- SHOP -->
-      <Card
-        :dataCard="data"/>
-      <!-- NEWS -->
-      <Card
-        :dataCard="dataNews"/>
-      <!-- ITENS -->
-      <Card
-        :dataCard="dataItens"/>
-      <!-- MAP -->
-      <Card
-        :dataCard="dataMap"/>
+    <div class="row justify-center full-height full-width text-center q-mb-lg desktop-only text-primary">
+      <h4>Visualização somente em dispositivos móveis</h4>
     </div>
   </q-page>
 </template>
