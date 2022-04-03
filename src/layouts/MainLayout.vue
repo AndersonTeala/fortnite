@@ -42,7 +42,10 @@ export default {
     return {
       leftDrawerOpen: false
     }
-  }
+  },
+  created(){
+    this.$q.dark.set(true)
+  },
 }
 </script>
 <style>
@@ -55,5 +58,8 @@ export default {
   max-height: 100px;
   width: auto;
   height: auto;
+}
+body.body--dark {
+  background: #111823;
 }
 </style>
