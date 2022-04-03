@@ -37,6 +37,7 @@
 
 <script>
 import Card from 'src/components/Fortnite/Card.vue'
+import * as html2canvas from 'html2canvas'
 
 import { Plugins } from '@capacitor/core'
 const { LocalNotifications } = Plugins
@@ -149,6 +150,15 @@ export default {
           millisTill10 += 86400000;
       }
       setTimeout(this.pushNot(), millisTill10);
+    },
+    testt(){
+      html2canvas(document.querySelector("#capture")).then(canvas => {
+        var img = canvas.toDataURL("image/png");
+        var a = document.createElement("a");
+        a.href = img;
+        a.download = "test.png";
+        a.click();
+      });
     }
   },
 }
