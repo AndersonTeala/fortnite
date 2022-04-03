@@ -1,6 +1,6 @@
 <template class="bg-dark">
   <q-page class="temp bg-dark">
-    <div class="mobile-only">
+    <div class="">
       <div class="row justify-center full-height full-width text-center q-mb-lg">
         <img
           class="logoFortnite"
@@ -29,9 +29,9 @@
           :dataCard="dataMap"/>
       </div>
     </div>
-    <div class="row justify-center full-height full-width text-center q-mb-lg desktop-only text-primary">
+    <!-- <div class="row justify-center full-height full-width text-center q-mb-lg desktop-only text-primary">
       <h4>Visualização somente em dispositivos móveis</h4>
-    </div>
+    </div> -->
   </q-page>
 </template>
 
