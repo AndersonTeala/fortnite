@@ -88,37 +88,29 @@ export default {
       that.$axios.get(that.$fortniteAPI + '/cosmetics/br/search/all?language=pt-BR&type=' + type)
       .then(response => {
         that.items = response.data.data
+
         for (let i = 0; i < that.items.length; i++) {
-          var n = 1
-          let min = Math.ceil(1)
-          let max = Math.floor(that.items.length - 50)
-          let random1 = Math.floor(Math.random() * (max - min + 1)) + min
-          let random2 = Math.floor(Math.random() * (max - min + 1)) + min
-          let random3 = Math.floor(Math.random() * (max - min + 1)) + min
-          let random4 = Math.floor(Math.random() * (max - min + 1)) + min
-          if(that.items[random1]){
-            var image1 = that.items[random1].images.featured != null ? that.items[random1].images.featured : that.items[random1].images.icon
-            var smallIcon = that.items[random1].images.smallIcon
-          }
-          if(that.items[random2]){
-            var image2 = that.items[random2].images.featured != null ? that.items[random2].images.featured : that.items[random2].images.icon
-          }
-          if(that.items[random3]){
-            var image3 = that.items[random3].images.featured != null ? that.items[random3].images.featured : that.items[random3].images.icon
-          }
-          if(that.items[random4]){
-            var image4 = that.items[random4].images.featured != null ? that.items[random4].images.featured : that.items[random4].images.icon
-          }
-          that.mode = false
-          that.data.image = image1
-          that.dataNews.image = image2
-          that.dataItens.image = image3
-          that.dataMap.image = image4
-          break
+          let min = Math.ceil(1);
+          let max = Math.floor(that.items.length - 50);
+          let randomIndexes = Array.from({ length: 4 }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+          let [randomIndex1, randomIndex2, randomIndex3, randomIndex4] = randomIndexes;
+
+          let image1 = that.getRandomImage(that.items, randomIndex1);
+          let image2 = that.getRandomImage(that.items, randomIndex2);
+          let image3 = that.getRandomImage(that.items, randomIndex3);
+          let image4 = that.getRandomImage(that.items, randomIndex4);
+
+          that.mode = false;
+          [that.data.image, that.dataNews.image, that.dataItens.image, that.dataMap.image] = [image1, image2, image3, image4].filter(Boolean);
+          break;
         }
       }).catch(error => {
         console.log(error)
       })
+    },
+    getRandomImage(items, index) {
+      const item = items[index];
+      return item ? (item.images.featured != null ? item.images.featured : item.images.icon) : null;
     },
     pushNot(){
       const canSend = LocalNotifications.requestPermission()
