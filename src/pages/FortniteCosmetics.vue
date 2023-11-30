@@ -6,12 +6,13 @@
     </div>
     <div class="row items-center justify-center text-center">
       <div class="col">
-         <q-select :dense="true" :dark="true" filled v-model="select" :options="buttons" label="Selecionar tipo" emit-value map-options @input="changeType(select)" />
+        <q-select :dense="true" :dark="true" filled v-model="select" :options="buttons" label="Selecionar tipo" emit-value
+          map-options @input="changeType(select)" />
       </div>
     </div>
     <div class="row items-center justify-center text-center q-my-md">
       <div class="col">
-         <q-input :dark="true" v-model="search" label="Pesquisar" filled :dense="true">
+        <q-input :dark="true" v-model="search" label="Pesquisar" filled :dense="true">
 
           <template v-slot:hint>
             Pesquisar
@@ -19,21 +20,21 @@
 
           <template v-slot:after>
             <q-btn :dark="true" color="primary" size="md" @click="searchItens(search)" icon="search" />
-            <q-btn :disabled="items.length == 0" :dark="true" color="orange" size="md" @click="reset()" icon="clear_all" />
+            <q-btn :disabled="items.length == 0" :dark="true" color="orange" size="md" @click="reset()"
+              icon="clear_all" />
           </template>
         </q-input>
       </div>
     </div>
     <div v-if="notItem" class="row items-center justify-center text-center q-my-md">
-      <q-chip size="md" square color="orange" text-color="white" icon-right="sentiment_very_dissatisfied" >
+      <q-chip size="md" square color="orange" text-color="white" icon-right="sentiment_very_dissatisfied">
         Item não encontrado, tente novamente!
       </q-chip>
     </div>
     <!-- Outfit -->
     <div v-if="mode" class="row">
       <div class="col">
-        <Outfit
-          :data="items" />
+        <Outfit :data="items" />
       </div>
     </div>
   </q-page>
@@ -41,12 +42,13 @@
 
 <script>
 import Outfit from 'components/Fortnite/Cosmetics/Outfit.vue'
+
 import { Loading } from 'quasar'
 export default {
   components: {
     Outfit
   },
-  data () {
+  data() {
     return {
       items: [],
       buttons: [
@@ -109,45 +111,48 @@ export default {
       notItem: false,
     }
   },
-  created(){
-    // this.getShop()
+  created() {
+    this.getShop()
   },
   methods: {
-    getShop(type){
+    getShop(type = null) {
       const that = this
       that.reset()
       Loading.show()
-      that.$axios.get(that.$fortniteAPI + '/cosmetics/br/search/all?language=pt-BR&type=' + type)
-      .then(response => {
-        that.items = response.data.data
-        that.mode = true
-      }).catch(error => {
-        that.notItem = true
-        console.log(error)
-      }).finally(() => {
-        Loading.hide()
-      })
+      let url = that.$fortniteAPI + '/cosmetics/br'
+      if (type != null) {
+        url += '/search/all?type=' + type + '&searchLanguage=pt-BR'
+      }
+      that.$axios.get(url)
+        .then(response => {
+          that.items = response.data.data
+          that.mode = true
+        }).catch(error => {
+          that.notItem = true
+        }).finally(() => {
+          Loading.hide()
+        })
     },
-    searchItens(item){
+    searchItens(item) {
       const that = this
       that.reset()
       Loading.show()
       that.$axios.get(that.$fortniteAPI + '/cosmetics/br/search/all?language=pt-BR&name=' + item)
-      .then(response => {
-        that.items = response.data.data
-        that.mode = true
-      }).catch(error => {
-        that.notItem = true
-        console.log(error)
-      }).finally(() => {
-        Loading.hide()
-      })
+        .then(response => {
+          that.items = response.data.data
+          that.mode = true
+        }).catch(error => {
+          that.notItem = true
+          console.log(error)
+        }).finally(() => {
+          Loading.hide()
+        })
     },
-    changeType(select){
+    changeType(select) {
       this.reset()
       this.getShop(select)
     },
-    reset(){
+    reset() {
       this.notItem = false
       this.mode = false
       this.items = []
@@ -157,6 +162,7 @@ export default {
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 .title {
   font-family: 'Anton', sans-serif;
 }

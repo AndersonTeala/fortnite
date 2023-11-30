@@ -1,12 +1,8 @@
 <template class="bg-dark">
   <q-page class="temp bg-dark">
-    <div class="">
+    <div class="mobile-only">
       <div class="row justify-center full-height full-width text-center q-mb-lg">
-        <img
-          class="logoFortnite"
-          alt="Fortnite logo"
-          src="images/logo_fortnite_white.png"
-        />
+        <q-img class="logoFortnite" alt="Fortnite logo" src="img/tealagames.png" />
       </div>
       <div v-if="mode" class="q-pa-md">
         <q-card flat :dark="true" :square="false" :bordered="false">
@@ -16,22 +12,18 @@
       </div>
       <div v-if="mode == false">
         <!-- SHOP -->
-        <Card
-          :dataCard="data"/>
+        <Card :dataCard="data" />
         <!-- NEWS -->
-        <Card
-          :dataCard="dataNews"/>
+        <Card :dataCard="dataNews" />
         <!-- ITENS -->
-        <Card
-          :dataCard="dataItens"/>
+        <Card :dataCard="dataItens" />
         <!-- MAP -->
-        <Card
-          :dataCard="dataMap"/>
+        <Card :dataCard="dataMap" />
       </div>
     </div>
-    <!-- <div class="row justify-center full-height full-width text-center q-mb-lg desktop-only text-primary">
+    <div class="row justify-center full-height full-width text-center q-mb-lg desktop-only text-primary">
       <h4>Visualização somente em dispositivos móveis</h4>
-    </div> -->
+    </div>
   </q-page>
 </template>
 
@@ -47,7 +39,7 @@ export default {
   components: {
     Card
   },
-  data () {
+  data() {
     return {
       data: {
         image: 'https://fortnite-api.com/images/cosmetics/br/cid_527_athena_commando_f_streetfashionred/featured.png',
@@ -74,45 +66,37 @@ export default {
       smallIcon: ''
     }
   },
-  mounted(){
+  mounted() {
     this.getShop('outfit')
     this.pushNot('outfit')
-    // this.getNotTimeout()
-  },
-  beforeDestroy() {
-    // this.getNotTimeout()
   },
   methods: {
-    getShop(type){
-      const that = this
-      that.$axios.get(that.$fortniteAPI + '/cosmetics/br/search/all?language=pt-BR&type=' + type)
-      .then(response => {
-        that.items = response.data.data
+    async getShop(type) {
+      try {
+        const response = await this.$axios.get(`${this.$fortniteAPI}/cosmetics/br/search/all?language=pt-BR&type=${type}`);
+        this.items = response.data.data;
 
-        for (let i = 0; i < that.items.length; i++) {
-          let min = Math.ceil(1);
-          let max = Math.floor(that.items.length - 50);
-          let randomIndexes = Array.from({ length: 4 }, () => Math.floor(Math.random() * (max - min + 1)) + min);
-          let [randomIndex1, randomIndex2, randomIndex3, randomIndex4] = randomIndexes;
+        let min = Math.ceil(1);
+        let max = Math.floor(this.items.length - 50);
+        let randomIndexes = Array.from({ length: 4 }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+        let [randomIndex1, randomIndex2, randomIndex3, randomIndex4] = randomIndexes;
 
-          let image1 = that.getRandomImage(that.items, randomIndex1);
-          let image2 = that.getRandomImage(that.items, randomIndex2);
-          let image3 = that.getRandomImage(that.items, randomIndex3);
-          let image4 = that.getRandomImage(that.items, randomIndex4);
+        let image1 = this.getRandomImage(this.items, randomIndex1);
+        let image2 = this.getRandomImage(this.items, randomIndex2);
+        let image3 = this.getRandomImage(this.items, randomIndex3);
+        let image4 = this.getRandomImage(this.items, randomIndex4);
 
-          that.mode = false;
-          [that.data.image, that.dataNews.image, that.dataItens.image, that.dataMap.image] = [image1, image2, image3, image4].filter(Boolean);
-          break;
-        }
-      }).catch(error => {
-        console.log(error)
-      })
+        this.mode = false;
+        [this.data.image, this.dataNews.image, this.dataItens.image, this.dataMap.image] = [image1, image2, image3, image4].filter(Boolean);
+      } catch (error) {
+        console.log(error);
+      }
     },
     getRandomImage(items, index) {
       const item = items[index];
       return item ? (item.images.featured != null ? item.images.featured : item.images.icon) : null;
     },
-    pushNot(){
+    pushNot() {
       const canSend = LocalNotifications.requestPermission()
       var now = new Date();
       if (canSend) {
@@ -135,15 +119,15 @@ export default {
       }
       // console.log('scheduled notifications', LocalNotifications);
     },
-    getNotTimeout(){
+    getNotTimeout() {
       var now = new Date();
       var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 0, 0, 0) - now;
       if (millisTill10 < 0) {
-          millisTill10 += 86400000;
+        millisTill10 += 86400000;
       }
       setTimeout(this.pushNot(), millisTill10);
     },
-    testt(){
+    testt() {
       html2canvas(document.querySelector("#capture")).then(canvas => {
         var img = canvas.toDataURL("image/png");
         var a = document.createElement("a");
@@ -157,9 +141,11 @@ export default {
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 .temp {
   font-family: 'Anton', sans-serif;
 }
+
 .logoFortnite {
   max-width: 200px;
   max-height: 150px;

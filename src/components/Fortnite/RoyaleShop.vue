@@ -5,65 +5,74 @@
       {{ titleType }}
     </div>
     <!-- SHOP -->
-    <div class="display-flex">
-      <!-- justify-center full-height full-width -->
-      <div class="warp" v-for="(item, index) in dataShop" :key="index">
+    <div class="row q-col-gutter-sm">
+      <div class="col-12" v-for="(item, index) in dataShop" :key="index">
         <q-card :dark="true" :square="false" :bordered="false" class="text-white" @click="dataItem(item)">
           <!-- IMG -->
-          <q-img
-            :style="'background: radial-gradient(circle, #fff -80%, ' + bgColor(item.items[0].rarity.value) +  ' 70%)'"
-            :src="item.items[0].images.icon" >
-            <div v-if="item.items.length <= 3" class="absolute-bottom text-subtitle2 text-center">
-              {{ item.items[0].name }}
-            </div>
-            <div v-else class="absolute-bottom text-subtitle2 text-center">
-              Pacotão - {{ item.items[0].name }}
-            </div>
-          </q-img>
+          <CarouselImgShop :item="item" />
           <q-card-section class="bg-info">
-            <div class="row justify-center text-center items-center">
-              <img style="width: 27px; margin-right: 5px" :src="vbuckImage">
-              <div class="text-subtitle2">
-                {{ item.finalPrice }}
+            <!-- NOME -->
+            <div class="row justify-center text-center">
+              <div v-if="item.items.length <= 3" class="text-h6">
+                {{ item.items[0].name }}
               </div>
+              <div v-else class="text-h6">
+                Pacotão - {{ item.items[0].name.slice(0, 6) }}...
+              </div>
+            </div>
+            <!-- PRICES -->
+            <div class="row justify-center text-center items-center">
+              <div v-if="item.regularPrice != item.finalPrice" class="col-2">
+                <div class="text-subtitle2 strike-through">
+                  {{ item.regularPrice }}
+                </div>
+              </div>
+              <div class="col-2">
+                <div :class="item.regularPrice != item.finalPrice ? 'text-subtitle2 text-right' : 'text-subtitle2'">
+                  {{ item.finalPrice }}
+                </div>
+              </div>
+              <img style="width: 27px;" :src="vbuckImage">
             </div>
           </q-card-section>
         </q-card>
       </div>
     </div>
     <!-- INFO ITEM SHOP -->
-    <InfoItemShop
-      v-if="infoItem"
-      :infoItem="infoItem"
-      :info="infoData"
-      @back="back"/>
+    <InfoItemShop v-if="infoItem" :infoItem="infoItem" :info="infoData" :vbuckImage="vbuckImage" @back="back" />
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
+
 const eventHub = new Vue()
 import InfoItemShop from 'components/Fortnite/InfoItemShop.vue'
+import CarouselImgShop from 'components/Fortnite/CarouselImgShop.vue'
+
 export default {
   // name: 'ComponentName',
   props: ['data', 'vbuckIcon', 'titleType'],
   components: {
-    InfoItemShop
+    InfoItemShop,
+    CarouselImgShop
   },
-  data () {
+  data() {
     return {
       dataShop: this.data,
       vbuckImage: this.vbuckIcon,
       infoItem: false,
       infoData: {},
-      eventHub: eventHub
+      eventHub: eventHub,
+      slide: 0,
+      autoplay: true
     }
   },
-  created(){
-    // console.log(this.data)
+  created() {
+    // console.log(VueRouter)
   },
   methods: {
-    bgColor(value){
+    bgColor(value) {
       let color
       switch (value) {
         case 'uncommon':
@@ -83,40 +92,51 @@ export default {
           break;
 
         default:
-          color = 'purple'
+          color = value
           break;
       }
+
+      if (color == undefined || color == null) {
+        color = '#1492FF'
+      } else {
+        color = '#' + value
+      }
+
       return color
     },
-    dataItem(item){
-      // console.log(item)
+    dataItem(item) {
+      console.log(item)
       this.infoData = item
       this.infoItem = true
-      return
-      // this.$router.push({
-      //   path: '/info-item-shop',
-      // })
     },
-    back(event){
+    back(event) {
       this.infoItem = event
       this.infoData = {}
-    }
-  }
+    },
+  },
 }
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 .title {
   font-family: 'Anton', sans-serif;
 }
+
 .display-flex {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 .warp {
   padding: 10px;
   flex-basis: 50%;
   flex-grow: 1;
+}
+
+.strike-through {
+  font-size: 14px;
+  text-decoration: line-through;
 }
 </style>

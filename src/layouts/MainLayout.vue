@@ -5,7 +5,7 @@
           <div class="row justify-center full-height full-width text-center q-my-sm">
             <div class="title text-h4 text-center text-primary">
               <template>
-                <img src="images/tealagames.png" class="logoTeala">
+                <img src="img/tealagames.png" class="logoTeala">
               </template>
             </div>
           </div>

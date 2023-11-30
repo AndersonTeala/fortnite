@@ -8,35 +8,12 @@
         </div>
         <div v-for="(item, index) in data.items" :key="index">
           <!-- ITEM -->
-          <div class="bg-info" v-if="index === 0">
-            <CarouselImgShop :item="data" />
-            <q-card-section class="bg-info">
-              <!-- NOME -->
-              <div class="row-12 justify-center text-center">
-                <div v-if="data.items.length <= 3" class="text-h6">
-                  {{ data.items[0].name }}
-                </div>
-                <div v-else class="text-h6">
-                  Pacotão - {{ data.items[0].name }}
-                </div>
-                <div class="text-caption">
-                  {{ item.description }}
-                </div>
-              </div>
-              <!-- PRICES -->
-              <div class="row justify-center text-center items-center">
-                <div v-if="data.regularPrice != data.finalPrice" class="col-2">
-                  <div class="text-h5 strike-through">
-                    {{ data.regularPrice }}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div :class="data.regularPrice != data.finalPrice ? 'text-h6 text-right' : 'text-h6'">
-                    {{ data.finalPrice }}
-                  </div>
-                </div>
-                <img v-if="vbuckImage" style="width: 27px;" :src="vbuckImage">
-              </div>
+          <div class="bg-info text-center" v-if="index === 0">
+            <q-img :style="'background: radial-gradient(circle, #fff 5%, ' + bgColor(item.rarity.value) + ' 70%)'"
+              :src="item.images.featured != null ? item.images.featured : item.images.icon" />
+            <q-card-section class="text-center bg-info">
+              <div class="text-h6">{{ item.name }}</div>
+              {{ item.description }}
             </q-card-section>
           </div>
         </div>
@@ -45,14 +22,12 @@
           Acompanha
         </div>
         <div v-for="(item, index) in data.items" :key="item.id" class="display-flex">
-          <div v-if="index > -1" class="warp">
+          <div v-if="index > 0" class="warp">
             <!-- IMG -->
-            <q-img
-              :style="'background: radial-gradient(circle, #fff -80%, ' + bgColor(data.newDisplayAsset.materialInstances[0].colors.Background_Color_B) + ' 70%)'"
+            <q-img :style="'background: radial-gradient(circle, #fff -80%, ' + bgColor(item.rarity.value) + ' 70%)'"
               :src="item.images.featured != null ? item.images.featured : item.images.icon">
               <div class="absolute-bottom text-subtitle2 text-center">
                 {{ item.name }}
-                <!-- <q-btn class="full-width" color="primary" label="Visualizar" @click="show(item.id)"/> -->
               </div>
             </q-img>
           </div>
@@ -79,14 +54,9 @@
 
 <script>
 import { Loading } from 'quasar'
-import CarouselImgShop from 'components/Fortnite/CarouselImgShop.vue'
-
 export default {
   name: 'InfoItemShop',
-  props: ['info', 'infoItem', 'vbuckImage'],
-  components: {
-    CarouselImgShop
-  },
+  props: ['info', 'infoItem'],
   data() {
     return {
       data: this.info,
@@ -117,13 +87,13 @@ export default {
     Loading.hide()
   },
   mounted() {
-    //
+    // console.log(this.info)
   },
   beforeDestroy() {
     if (this.infoItem) {
-      if (this.$router.currentRoute.path != '/fortnite-shop') {
+      if (this.$router.currentRoute.path != '/fortnite-cosmetics') {
         this.$router.push({
-          path: '/fortnite-shop'
+          path: '/fortnite-cosmetics'
         })
       }
     }
@@ -149,22 +119,16 @@ export default {
           break;
 
         default:
-          color = value
+          color = 'purple'
           break;
       }
-
-      if (color == undefined || color == null) {
-        color = '#1492FF'
-      } else {
-        color = '#' + value
-      }
-
       return color
     },
     back() {
       this.$emit('back', false)
     },
     show(id) {
+      // console.log(id)
       this.$router.push({
         path: '/cosmetic/' + id
       })
