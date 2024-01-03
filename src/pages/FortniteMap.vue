@@ -103,18 +103,17 @@ export default {
       marcador.width = 50;
       marcador.height = 50;
 
-      // Ajuste nas coordenadas considerando proporções da imagem e coordenada Z
-      const posX = (poi.location.x / 100000) * (imagemMapa.width / 2) + (imagemMapa.width / 2);
-      const posY = (poi.location.y / -100000) * (imagemMapa.height / 2) + (imagemMapa.height / 2);
+      // const posX = (poi.location.x / 100000) * (imagemMapa.width / 2) + (imagemMapa.width / 2);
+      // const posY = (poi.location.y / -100000) * (imagemMapa.height / 2) + (imagemMapa.height / 2);
+      const posX = (poi.location.x / 100000) * imagemMapa.width;
+      const posY = (poi.location.y / -100000) * imagemMapa.height;
 
-      // Se desejar levar em consideração a coordenada Z para a altura do marcador
-      const altura = poi.location.z; // ajuste conforme necessário
+      const altura = poi.location.z;
 
       marcador.style.position = "absolute";
       marcador.style.left = posX + "px";
       marcador.style.top = posY + "px";
 
-      // Ajuste a altura do marcador conforme necessário
       marcador.style.transform = `translate(0, 0, ${altura}px)`;
 
       imagemMapa.parentNode.appendChild(marcador);
